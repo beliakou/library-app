@@ -11,5 +11,11 @@
 
     <artifactId>library-repository-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.smartexlab</groupId>
+            <artifactId>library-model</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
