@@ -1,0 +1,12 @@
+server.port: 8080
+
+spring:
+  liquibase:
+    enabled: true
+    drop-first: true
+    change-log: classpath:/db/changelog/changelog-master.xml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/library
+    username: test
+    password: test
+    driverClassName: org.postgresql.Driver
