@@ -18,8 +18,8 @@
 	<modules>
 		<module>library-model</module>
 		<module>library-server</module>
-		<module>library-service</module>
-		<module>library-service-api</module>
+		<module>library-repository</module>
+		<module>library-repository-api</module>
 		<module>library-db</module>
 	</modules>
 
@@ -42,13 +42,13 @@
 			</dependency>
 
 			<dependency>
-				<artifactId>library-service-api</artifactId>
+				<artifactId>library-repository-api</artifactId>
 				<groupId>${project.groupId}</groupId>
 				<version>${project.version}</version>
 			</dependency>
 
 			<dependency>
-				<artifactId>library-service</artifactId>
+				<artifactId>library-repository</artifactId>
 				<groupId>${project.groupId}</groupId>
 				<version>${project.version}</version>
 			</dependency>

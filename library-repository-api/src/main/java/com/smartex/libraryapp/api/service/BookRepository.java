@@ -5,7 +5,7 @@ import com.smartex.libraryapp.model.Book;
 
 import java.util.List;
 
-public interface BookService {
+public interface BookRepository {
     Book findBookById(Long id);
 
     List<Book> findBooksByAuthor(Author author);

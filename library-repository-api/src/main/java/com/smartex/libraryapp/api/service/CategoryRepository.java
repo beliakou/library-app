@@ -4,7 +4,7 @@ import com.smartex.libraryapp.model.Category;
 
 import java.util.List;
 
-public interface CategoryService {
+public interface CategoryRepository {
     Category findCategoryById(Long id);
 
     List<Category> findCategories();

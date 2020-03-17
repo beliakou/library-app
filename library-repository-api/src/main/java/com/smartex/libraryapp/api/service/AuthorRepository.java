@@ -4,7 +4,7 @@ import com.smartex.libraryapp.model.Author;
 
 import java.util.List;
 
-public interface AuthorService {
+public interface AuthorRepository {
     Author findAuthorById(Long id);
 
     List<Author> findAuthorsByName(String name);
