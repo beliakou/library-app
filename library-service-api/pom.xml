@@ -11,5 +11,11 @@
 
     <artifactId>library-service-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>library-model</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
