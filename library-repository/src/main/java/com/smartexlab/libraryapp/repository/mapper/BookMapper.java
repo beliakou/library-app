@@ -23,6 +23,7 @@ public class BookMapper implements RowMapper<Book> {
 
     @Override
     public Book mapRow(ResultSet resultSet, int i) throws SQLException {
+
         var book = new Book();
         var author = new Author();
 

@@ -60,8 +60,8 @@ CREATE TYPE account_role AS ENUM ('admin', 'user');
 
 CREATE TABLE account (
     account_id INTEGER NOT NULL DEFAULT nextval('account_id_seq'),
-    login VARCHAR(128),
-    password CHAR(60),
-    assigned_role account_role,
+    login VARCHAR(128) NOT NULL UNIQUE,
+    password CHAR(60) NOT NULL,
+    assigned_role account_role NOT NULL,
     CONSTRAINT account_pk PRIMARY KEY (account_id)
 );
