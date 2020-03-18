@@ -25,7 +25,8 @@
 		<module>library-repository</module>
 		<module>library-server</module>
 		<module>library-model</module>
-	</modules>
+        <module>library-service</module>
+    </modules>
 
 
 	<dependencyManagement>
@@ -54,8 +55,28 @@
 				<version>${project.version}</version>
 			</dependency>
 
+			<dependency>
+				<artifactId>library-service</artifactId>
+				<groupId>${project.groupId}</groupId>
+				<version>${project.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
 
 
 </project>

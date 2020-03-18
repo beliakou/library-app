@@ -9,11 +9,13 @@ import com.smartexlab.libraryapp.repository.mapper.BookMapper;
 import com.smartexlab.libraryapp.repository.mapper.CategoryMapper;
 import com.smartexlab.libraryapp.repository.util.InjectSql;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class JdbcBookRepository implements BookRepository {
 
     @InjectSql("/sql/book_dto/findAll.sql")
