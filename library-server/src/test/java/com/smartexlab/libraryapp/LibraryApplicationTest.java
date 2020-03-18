@@ -28,7 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 class LibraryApplicationTest {
 
-    private static final String BASIC_AUTH_HEADER = "Basic dXNlcjpwYXNzd29yZA==";
+    private static final String BASIC_AUTH_HEADER_USER = "Basic dXNlcjp1c2VyUGFzc3dvcmQ=";
+    private static final String BASIC_AUTH_HEADER_ADMIN = "Basic YWRtaW46YWRtaW5QYXNzd29yZA==";
 
     @Container
     public static PostgreSQLContainer postgreSQLContainer =
@@ -56,34 +57,41 @@ class LibraryApplicationTest {
 
     @Test
     void testAuthorizedAccessAllowed() throws Exception {
-        mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER))
+        mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    void testFindBooksResponseIsCorrect() throws Exception {
+    void testListOfBooksWithNameAndAuthorIsReturned() throws Exception {
         String expectedJson = IOUtils.resourceToString("/json/findBookDtos.json", StandardCharsets.UTF_8);
-        mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER))
+        mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson, true));
     }
 
     @Test
-    void testFindBookByIdResponseIsCorrect() throws Exception {
+    void testBookWithDetailsIsReturned() throws Exception {
         String expectedJson = IOUtils.resourceToString("/json/findBookById.json", StandardCharsets.UTF_8);
-        mockMvc.perform(get("/books/1").header("Authorization", BASIC_AUTH_HEADER))
+        mockMvc.perform(get("/books/1").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(expectedJson, false))
+                .andExpect(content().json(expectedJson, false));
+    }
+
+    @Test
+    void testBookUpdateTimeIsReturned() throws Exception {
+        mockMvc.perform(get("/books/1").header("Authorization", BASIC_AUTH_HEADER_USER))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.updateTime").exists());
     }
 
     @Test
     void testErrorReturnedWhenBookNotFound() throws Exception {
         String expectedJson = IOUtils.resourceToString("/json/bookNotFound.json", StandardCharsets.UTF_8);
-        mockMvc.perform(get("/books/22").header("Authorization", BASIC_AUTH_HEADER))
+        mockMvc.perform(get("/books/22").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(expectedJson, true));

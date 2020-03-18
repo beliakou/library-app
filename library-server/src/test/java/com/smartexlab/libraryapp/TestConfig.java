@@ -17,16 +17,18 @@ public class TestConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("password"))
-                .authorities("ROLE_USER");
+                .withUser("user")
+                .password(passwordEncoder().encode("userPassword"))
+                .authorities("ROLE_USER")
+                .and()
+                .withUser("admin")
+                .password(passwordEncoder().encode("adminPassword"))
+                .authorities("ROLE_ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+        http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
     }
 
     @Bean
