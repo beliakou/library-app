@@ -1,0 +1,19 @@
+{
+  "id": 1,
+  "isbn": "1536870439",
+  "name": "The Pickwick Papers",
+  "author": {
+    "id": 1,
+    "name": "Charles Dickens"
+  },
+  "categories": [
+    {
+      "id": 4,
+      "name": "novel"
+    },
+    {
+      "id": 1,
+      "name": "classic"
+    }
+  ]
+}

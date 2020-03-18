@@ -13,15 +13,22 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
+
+import java.nio.charset.StandardCharsets;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ContextConfiguration(initializers = LibraryApplicationTest.Initializer.class)
+@ContextConfiguration(
+        classes = {LibraryApplication.class, TestConfig.class},
+        initializers = LibraryApplicationTest.Initializer.class)
 @Testcontainers
 class LibraryApplicationTest {
+
+    private static final String BASIC_AUTH_HEADER = "Basic dXNlcjpwYXNzd29yZA==";
 
     @Container
     public static PostgreSQLContainer postgreSQLContainer =
@@ -45,5 +52,31 @@ class LibraryApplicationTest {
         mockMvc.perform(get("/books"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void testAuthorizedAccessAllowed() throws Exception {
+        mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testFindBooksResponseIsCorrect() throws Exception {
+        String expectedJson = IOUtils.resourceToString("/json/findBookDtos.json", StandardCharsets.UTF_8);
+        mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson, true));
+    }
+
+    @Test
+    void testFindBookByIdResponseIsCorrect() throws Exception {
+        String expectedJson = IOUtils.resourceToString("/json/findBookById.json", StandardCharsets.UTF_8);
+        mockMvc.perform(get("/books/1").header("Authorization", BASIC_AUTH_HEADER))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJson, false))
+                .andExpect(jsonPath("$.updateTime").exists());
     }
 }

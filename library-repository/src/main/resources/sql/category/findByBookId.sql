@@ -1,5 +1,5 @@
-SELECT  c.category_id,
-        c.name
+SELECT  c.category_id as category_id,
+        c.name as category_name
     FROM category c
     JOIN
         (SELECT bc.book_id, bc.category_id FROM book_category bc

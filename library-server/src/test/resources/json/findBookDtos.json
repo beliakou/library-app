@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "bookName": "The Pickwick Papers",
+    "authorName": "Charles Dickens"
+  },
+  {
+    "id": 2,
+    "bookName": "Foundation",
+    "authorName": "Isaac Asimov"
+  },
+  {
+    "id": 3,
+    "bookName": "Complete Poems and Selected Letters of John Keats ",
+    "authorName": "John Keats"
+  }
+]
