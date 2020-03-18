@@ -1,13 +1,13 @@
 package com.smartexlab.libraryapp.service;
 
 import com.smartexlab.libraryapp.api.respository.BookRepository;
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.BookDto;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.BookDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class BookService {
@@ -19,14 +19,14 @@ public class BookService {
     }
 
     public List<BookDto> findBookDtos() {
-        return Optional.ofNullable(this.bookRepository.findAll()).orElse(Collections.emptyList());
+        return Objects.requireNonNullElse(this.bookRepository.findAll(), Collections.emptyList());
     }
 
-    public Optional<Book> findBookById(Long bookId) {
+    public Book findBookById(Long bookId) {
         if (bookId == null) {
             throw new IllegalArgumentException("Book id cannot be null");
         }
 
-        return Optional.ofNullable(this.bookRepository.findById(bookId));
+        return this.bookRepository.findById(bookId);
     }
 }

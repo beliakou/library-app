@@ -1,6 +1,6 @@
 package com.smartexlab.libraryapp.repository.mapper;
 
-import com.smartexlab.libraryapp.model.BookDto;
+import com.smartexlab.libraryapp.model.domain.BookDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

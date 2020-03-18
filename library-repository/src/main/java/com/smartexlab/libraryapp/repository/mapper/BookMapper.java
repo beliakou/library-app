@@ -1,8 +1,8 @@
 package com.smartexlab.libraryapp.repository.mapper;
 
-import com.smartexlab.libraryapp.model.Author;
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.Category;
+import com.smartexlab.libraryapp.model.domain.Author;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.Category;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

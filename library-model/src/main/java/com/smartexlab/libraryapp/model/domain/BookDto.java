@@ -1,4 +1,4 @@
-package com.smartexlab.libraryapp.model;
+package com.smartexlab.libraryapp.model.domain;
 
 public class BookDto {
     private Long id;

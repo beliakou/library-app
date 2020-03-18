@@ -1,8 +1,8 @@
 package com.smartexlab.libraryapp.repository;
 
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.BookDto;
-import com.smartexlab.libraryapp.model.Category;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.BookDto;
+import com.smartexlab.libraryapp.model.domain.Category;
 import com.smartexlab.libraryapp.repository.mapper.BookDtoMapper;
 import com.smartexlab.libraryapp.repository.mapper.BookMapper;
 import com.smartexlab.libraryapp.repository.mapper.CategoryMapper;

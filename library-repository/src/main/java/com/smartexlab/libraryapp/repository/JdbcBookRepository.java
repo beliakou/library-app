@@ -1,13 +1,17 @@
 package com.smartexlab.libraryapp.repository;
 
 import com.smartexlab.libraryapp.api.respository.BookRepository;
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.BookDto;
-import com.smartexlab.libraryapp.model.Category;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.BookDto;
+import com.smartexlab.libraryapp.model.domain.Category;
+import com.smartexlab.libraryapp.model.exception.DataNotFoundException;
+import com.smartexlab.libraryapp.model.exception.ServerSideException;
 import com.smartexlab.libraryapp.repository.mapper.BookDtoMapper;
 import com.smartexlab.libraryapp.repository.mapper.BookMapper;
 import com.smartexlab.libraryapp.repository.mapper.CategoryMapper;
 import com.smartexlab.libraryapp.repository.util.InjectSql;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -50,15 +54,22 @@ public class JdbcBookRepository implements BookRepository {
 
     @Override
     public Book findById(Long id) {
-        Book book =
-                this.jdbcTemplate.queryForObject(
-                        this.findBookByIdSql, Map.of("bookId", id), this.bookMapper);
-        if (book != null) {
+        try {
+            Book book =
+                    this.jdbcTemplate.queryForObject(
+                            this.findBookByIdSql, Map.of("bookId", id), this.bookMapper);
             List<Category> categories =
                     this.jdbcTemplate.query(
                             this.findBookCategoriesSql, Map.of("bookId", id), this.categoryMapper);
             book.setCategories(new HashSet<>(categories));
+            return book;
+        } catch (EmptyResultDataAccessException ex) {
+            throw new DataNotFoundException(String.format("Book with id=%s not found", id), ex);
+        } catch (DataAccessException ex) {
+            throw new com.smartexlab.libraryapp.model.exception.DataAccessException(
+                    String.format("Cannot retireve " + "book with id=%s from database", id), ex);
+        } catch (Exception ex) {
+            throw new ServerSideException("Error occurred while accessing book data", ex);
         }
-        return book;
     }
 }

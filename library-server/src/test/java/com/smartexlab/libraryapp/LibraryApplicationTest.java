@@ -79,4 +79,13 @@ class LibraryApplicationTest {
                 .andExpect(content().json(expectedJson, false))
                 .andExpect(jsonPath("$.updateTime").exists());
     }
+
+    @Test
+    void testErrorReturnedWhenBookNotFound() throws Exception {
+        String expectedJson = IOUtils.resourceToString("/json/bookNotFound.json", StandardCharsets.UTF_8);
+        mockMvc.perform(get("/books/22").header("Authorization", BASIC_AUTH_HEADER))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().json(expectedJson, true));
+    }
 }

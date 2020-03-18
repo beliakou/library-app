@@ -1,8 +1,8 @@
 package com.smartexlab.libraryapp.service;
 
 import com.smartexlab.libraryapp.api.respository.BookRepository;
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.BookDto;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.BookDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -53,19 +52,18 @@ class BookServiceTest {
         long bookId = 12L;
         when(bookRepository.findById(bookId)).thenReturn(expectedBook);
 
-        Optional<Book> bookById = this.bookService.findBookById(bookId);
+        Book bookById = this.bookService.findBookById(bookId);
 
-        assertFalse(bookById.isEmpty());
-        assertEquals(expectedBook, bookById.get());
+        assertEquals(expectedBook, bookById);
     }
 
     @Test
-    void testEmptyOptionalReturnedWhenBookNotFound() {
+    void testNullReturnedWhenBookNotFound() {
         when(bookRepository.findById(any())).thenReturn(null);
 
-        Optional<Book> bookById = this.bookService.findBookById(12L);
+        Book bookById = this.bookService.findBookById(12L);
 
-        assertTrue(bookById.isEmpty());
+        assertNull(null);
     }
 
     @Test

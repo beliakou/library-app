@@ -1,4 +1,4 @@
-package com.smartexlab.libraryapp.model;
+package com.smartexlab.libraryapp.model.domain;
 
 import java.time.OffsetDateTime;
 import java.util.Set;

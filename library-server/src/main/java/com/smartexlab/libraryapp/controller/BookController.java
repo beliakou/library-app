@@ -1,7 +1,7 @@
 package com.smartexlab.libraryapp.controller;
 
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.BookDto;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.BookDto;
 import com.smartexlab.libraryapp.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,6 @@ public class BookController {
 
     @GetMapping("/books/{id}")
     public ResponseEntity<Book> findBookById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(this.bookService.findBookById(id).orElseThrow());
+        return ResponseEntity.ok(this.bookService.findBookById(id));
     }
-
 }

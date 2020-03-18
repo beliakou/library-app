@@ -1,6 +1,6 @@
-package com.smartexlab.libraryapp.model;
+package com.smartexlab.libraryapp.model.domain;
 
-public class Category {
+public class Author {
 
     private Long id;
     private String name;

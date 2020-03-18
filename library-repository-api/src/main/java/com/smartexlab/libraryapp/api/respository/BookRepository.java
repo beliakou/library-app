@@ -1,8 +1,8 @@
 package com.smartexlab.libraryapp.api.respository;
 
 
-import com.smartexlab.libraryapp.model.Book;
-import com.smartexlab.libraryapp.model.BookDto;
+import com.smartexlab.libraryapp.model.domain.Book;
+import com.smartexlab.libraryapp.model.domain.BookDto;
 
 import java.util.List;
 
