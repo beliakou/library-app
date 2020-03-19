@@ -1,4 +1,4 @@
-version: "3"
+version: "2.4"
 services:
   postgres:
     image: "postgres:11.7-alpine"
@@ -10,3 +10,29 @@ services:
     ports:
       - "5432:5432"
     command: ["postgres", "-c", "log_statement=all"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test -d library"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  server:
+    image: "openjdk:11-jre-slim"
+    container_name: "server"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - server.port=8080
+      - spring.liquibase.enabled=true
+      - spring.liquibase.drop-first=false
+      - spring.liquibase.change-log=classpath:/db/changelog/changelog-test.xml
+      - spring.datasource.url=jdbc:postgresql://POSTGRES:5432/library
+      - spring.datasource.username=test
+      - spring.datasource.password=test
+      - spring.datasource.driverClassName=org.postgresql.Driver
+    volumes:
+      - ./library-server/target:/local/app
+    ports:
+      - "8080:8080"
+    command: "bash -c 'java -jar /local/app/library-server-*-SNAPSHOT.jar '"
+
