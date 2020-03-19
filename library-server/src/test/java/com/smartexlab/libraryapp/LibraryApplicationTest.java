@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ContextConfiguration(
-        classes = {LibraryApplication.class, TestConfig.class},
+        classes = {LibraryApplication.class},
         initializers = LibraryApplicationTest.Initializer.class)
 @Testcontainers
 class LibraryApplicationTest {
@@ -53,6 +53,32 @@ class LibraryApplicationTest {
         mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void testCreateBookWithUserRoleRestricted() throws Exception {
+        String createBookJson =
+                IOUtils.resourceToString("/json/createBookRequest.json", StandardCharsets.UTF_8);
+        mockMvc.perform(
+                        post("/books")
+                                .content(createBookJson)
+                                .header("Authorization", BASIC_AUTH_HEADER_USER)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void testUpdateBookWithUserRoleRestricted() throws Exception {
+        String createBookJson =
+                IOUtils.resourceToString("/json/updateBookRequest.json", StandardCharsets.UTF_8);
+        mockMvc.perform(
+                        put("/books/1")
+                                .content(createBookJson)
+                                .header("Authorization", BASIC_AUTH_HEADER_USER)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isForbidden());
     }
 
     @Test

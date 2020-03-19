@@ -50,18 +50,3 @@ CREATE TABLE book_category (
             REFERENCES category(category_id),
     CONSTRAINT book_category_key UNIQUE (book_id, category_id)
 );
-
-
--- account table
-
-CREATE SEQUENCE account_id_seq;
-
-CREATE TYPE account_role AS ENUM ('admin', 'user');
-
-CREATE TABLE account (
-    account_id INTEGER NOT NULL DEFAULT nextval('account_id_seq'),
-    login VARCHAR(128) NOT NULL UNIQUE,
-    password CHAR(60) NOT NULL,
-    assigned_role account_role NOT NULL,
-    CONSTRAINT account_pk PRIMARY KEY (account_id)
-);
