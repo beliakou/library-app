@@ -10,4 +10,8 @@ public interface BookRepository {
     List<BookDto> findAll();
 
     Book findById(Long id);
+
+    Long createBook(Book book);
+
+    void updateBook(Book book);
 }

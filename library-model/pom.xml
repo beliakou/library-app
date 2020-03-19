@@ -11,4 +11,12 @@
 
     <artifactId>library-model</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 </project>

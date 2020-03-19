@@ -1,0 +1,18 @@
+{
+  "isbn": "1122334455",
+  "name": "A Christmas Carol",
+  "author": {
+    "id": 1,
+    "name": "Charles Dickens"
+  },
+  "categories": [
+    {
+      "id": 3,
+      "name": "fiction"
+    },
+    {
+      "id": 1,
+      "name": "classic"
+    }
+  ]
+}

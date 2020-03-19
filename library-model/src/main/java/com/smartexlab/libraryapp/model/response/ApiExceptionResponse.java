@@ -1,9 +1,9 @@
 package com.smartexlab.libraryapp.model.response;
 
-public class ApiException {
+public class ApiExceptionResponse {
     private String message;
 
-    public ApiException(String message) {
+    public ApiExceptionResponse(String message) {
         this.message = message;
     }
 
