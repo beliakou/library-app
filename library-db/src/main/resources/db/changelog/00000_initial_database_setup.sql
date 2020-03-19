@@ -38,6 +38,18 @@ CREATE TABLE book (
         REFERENCES author(author_id) ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
+CREATE OR REPLACE FUNCTION update_timestamp_column()
+RETURNS TRIGGER LANGUAGE plpgsql AS
+$$
+BEGIN
+   NEW.update_time = current_timestamp;
+   RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER update_book_timestamp BEFORE UPDATE
+    ON book FOR EACH ROW EXECUTE PROCEDURE
+    update_timestamp_column();
 
 -- book <-> category many to many relation table
 

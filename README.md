@@ -1,6 +1,7 @@
 ### Requirements
 
 To build application: Maven, JDK 11, Docker
+
 To run application: Docker, Docker Compose  
 
 ### Start application
@@ -27,6 +28,11 @@ Predefined credentials are:
 Get all books:
 ```
 curl -i -X GET -H 'Authorization:Basic dXNlcjp1c2VyUGFzc3dvcmQ=' localhost:8080/books
+```
+
+Get book by id:
+```
+curl -i -X GET -H 'Authorization:Basic dXNlcjp1c2VyUGFzc3dvcmQ=' localhost:8080/books/4
 ```
 
 Create book:

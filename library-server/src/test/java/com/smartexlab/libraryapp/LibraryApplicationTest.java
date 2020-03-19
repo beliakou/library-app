@@ -1,5 +1,6 @@
 package com.smartexlab.libraryapp;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
 
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -97,6 +99,7 @@ class LibraryApplicationTest {
     }
 
     @Test
+    @Order(0)
     void testBookWithDetailsIsReturned() throws Exception {
         String expectedJson =
                 IOUtils.resourceToString("/json/findBookById.json", StandardCharsets.UTF_8);
@@ -107,6 +110,7 @@ class LibraryApplicationTest {
     }
 
     @Test
+    @Order(0)
     void testBookUpdateTimeIsReturned() throws Exception {
         mockMvc.perform(get("/books/1").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
@@ -115,6 +119,7 @@ class LibraryApplicationTest {
     }
 
     @Test
+    @Order(0)
     void testErrorReturnedWhenBookNotFound() throws Exception {
         String expectedJson =
                 IOUtils.resourceToString("/json/bookNotFound.json", StandardCharsets.UTF_8);
@@ -122,6 +127,41 @@ class LibraryApplicationTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(expectedJson, true));
+    }
+
+    @Test
+    void testUpdateTimeIsChangedAfterUpdate() throws Exception {
+        String bookUri = "/books/1";
+        String contentBeforeUpdate =
+                mockMvc.perform(get(bookUri).header("Authorization", BASIC_AUTH_HEADER_USER))
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
+
+        String updateBookJson =
+                IOUtils.resourceToString("/json/updateBookRequest.json", StandardCharsets.UTF_8);
+
+        mockMvc.perform(
+                        put(bookUri)
+                                .content(updateBookJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("Authorization", BASIC_AUTH_HEADER_ADMIN))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isNoContent());
+
+        String contentAfterUpdate =
+                mockMvc.perform(get(bookUri).header("Authorization", BASIC_AUTH_HEADER_USER))
+                        .andDo(MockMvcResultHandlers.print())
+                        .andExpect(status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
+
+        assertNotEquals(
+                JsonPath.<String>read(contentBeforeUpdate, "$.updateTime"),
+                JsonPath.<String>read(contentAfterUpdate, "$.updateTime"));
     }
 
     @Test

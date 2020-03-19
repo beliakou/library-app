@@ -2,12 +2,12 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="00000_initial_database_setup.sql" relativeToChangelogFile="true"/>
-    <include file="00005_spring_security_setup.sql" relativeToChangelogFile="true"/>
-    <include file="00010_initial_data.sql" relativeToChangelogFile="true"/>
-    <include file="00020_security_data.sql" relativeToChangelogFile="true"/>
+    <changeSet author="viktor" id="viktor_beliakou@smartexlab.com">
+        <sqlFile path="00000_initial_database_setup.sql" splitStatements="false" relativeToChangelogFile="true"/>
+        <sqlFile path="00005_spring_security_setup.sql" splitStatements="false" relativeToChangelogFile="true"/>
+        <sqlFile path="00010_initial_data.sql" splitStatements="false" relativeToChangelogFile="true"/>
+        <sqlFile path="00020_security_data.sql" splitStatements="false" relativeToChangelogFile="true"/>
+    </changeSet>
 </databaseChangeLog>
