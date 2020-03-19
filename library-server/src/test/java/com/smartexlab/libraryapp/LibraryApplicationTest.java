@@ -1,6 +1,9 @@
 package com.smartexlab.libraryapp;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         classes = {LibraryApplication.class},
         initializers = LibraryApplicationTest.Initializer.class)
 @Testcontainers
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class LibraryApplicationTest {
 
     private static final String BASIC_AUTH_HEADER_USER = "Basic dXNlcjp1c2VyUGFzc3dvcmQ=";
@@ -82,13 +86,14 @@ class LibraryApplicationTest {
     }
 
     @Test
+    @Order(0)
     void testListOfBooksWithNameAndAuthorIsReturned() throws Exception {
         String expectedJson =
                 IOUtils.resourceToString("/json/findBookDtos.json", StandardCharsets.UTF_8);
         mockMvc.perform(get("/books").header("Authorization", BASIC_AUTH_HEADER_USER))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(content().json(expectedJson, true));
+                .andExpect(content().json(expectedJson, false));
     }
 
     @Test
