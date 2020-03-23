@@ -1,0 +1,20 @@
+{
+  "id" : 5,
+  "isbn" : "1122334455",
+  "name" : "A Christmas Carol",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost/api/books/5"
+    },
+    "book" : {
+      "href" : "http://localhost/api/books/5{?projection}",
+      "templated" : true
+    },
+    "categories" : {
+      "href" : "http://localhost/api/books/5/categories"
+    },
+    "author" : {
+      "href" : "http://localhost/api/books/5/author"
+    }
+  }
+}

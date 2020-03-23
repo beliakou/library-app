@@ -1,0 +1,6 @@
+{
+  "isbn": "1122334455",
+  "name": "A Christmas Carol",
+  "author": "localhost/api/authors/1",
+  "categories": [ "localhost/api/categories/1", "localhost/api/categories/3"]
+}

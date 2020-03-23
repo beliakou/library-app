@@ -37,10 +37,18 @@ curl -i -X GET -H 'Authorization:Basic dXNlcjp1c2VyUGFzc3dvcmQ=' localhost:8080/
 
 Create book:
 ```
-curl -i -X POST -H 'Authorization:Basic YWRtaW46YWRtaW5QYXNzd29yZA==' -H 'Content-type:application/json' -d '{"isbn": "12345", "name": "Test book", "authorId": 1, "categories": [1,3]}' localhost:8080/books
+curl -i -X POST \
+    -H 'Authorization:Basic YWRtaW46YWRtaW5QYXNzd29yZA==' \
+    -H 'Content-type:application/json' \
+    -d '{"isbn": "12345", "name": "Test book", "author": "http://localhost:8080/api/authors/3", "categories": ["http://localhost:8080/api/categories/1", "http://localhost:8080/api/categories/3"]}'\
+    localhost:8080/api/books
 ```
 
 Update book:
 ```
-curl -i -X PUT -H 'Authorization:Basic YWRtaW46YWRtaW5QYXNzd29yZA==' -H 'Content-type:application/json' -d '{"isbn": "54321", "name": "Another book", "authorId": 2, "categories": [1,2]}' localhost:8080/books/7
+curl -i -X PATCH \                                                                                     
+    -H 'Authorization:Basic YWRtaW46YWRtaW5QYXNzd29yZA==' \
+    -H 'Content-type:application/json' \
+    -d '{"isbn": "54321", "name": "Updated test book", "author": "http://localhost:8080/api/authors/1", "categories": ["http://localhost:8080/api/categories/2", "http://localhost:8080/api/categories/4"]}'\
+    localhost:8080/api/books/5
 ```

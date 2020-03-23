@@ -1,0 +1,66 @@
+{
+  "_embedded": {
+    "book": [
+      {
+        "name": "The Pickwick Papers",
+        "author": {
+          "name": "Charles Dickens"
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost/api/books/1"
+          },
+          "book": {
+            "href": "http://localhost/api/books/1{?projection}",
+            "templated": true
+          }
+        }
+      },
+      {
+        "name": "Foundation",
+        "author": {
+          "name": "Isaac Asimov"
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost/api/books/2"
+          },
+          "book": {
+            "href": "http://localhost/api/books/2{?projection}",
+            "templated": true
+          }
+        }
+      },
+      {
+        "name": "Complete Poems and Selected Letters of John Keats ",
+        "author": {
+          "name": "John Keats"
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost/api/books/3"
+          },
+          "book": {
+            "href": "http://localhost/api/books/3{?projection}",
+            "templated": true
+          }
+        }
+      }
+    ]
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost/api/books{?page,size,sort,projection}",
+      "templated": true
+    },
+    "profile": {
+      "href": "http://localhost/api/profile/books"
+    }
+  },
+  "page": {
+    "size": 20,
+    "totalElements": 3,
+    "totalPages": 1,
+    "number": 0
+  }
+}

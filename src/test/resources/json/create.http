@@ -1,0 +1,7 @@
+GET http://localhost:8080/api/books
+Accept: */*
+Cache-Control: no-cache
+Authorization: Basic YWRtaW46YWRtaW5QYXNzd29yZA==
+
+###
+

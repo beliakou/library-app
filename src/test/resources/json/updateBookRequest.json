@@ -1,0 +1,6 @@
+{
+  "isbn": "9999999999",
+  "name": "Oliver Twist",
+  "author": "localhost/api/authors/2",
+  "categories": [ "localhost/api/categories/1","localhost/api/categories/4"]
+}
