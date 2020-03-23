@@ -1,0 +1,14 @@
+server.port: 8080
+
+spring:
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:/db/changelog/changelog-test.xml
+  datasource:
+    username: test
+    password: test
+    driverClassName: org.postgresql.Driver
+  data:
+    rest:
+      basePath: "/api"

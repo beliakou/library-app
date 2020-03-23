@@ -1,0 +1,14 @@
+{
+  "_embedded": {
+    "category": [
+      {
+        "id": 4,
+        "name": "novel"
+      },
+      {
+        "id": 1,
+        "name": "classic"
+      }
+    ]
+  }
+}

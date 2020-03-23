@@ -1,1 +1,0 @@
-INSERT INTO book_category (book_id, category_id) VALUES (:bookId, :categoryId);
